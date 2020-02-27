@@ -7,6 +7,8 @@ import ButtonPlusHundred from "./components/button/ButtonPlusHundred";
 import ButtonMinusOne from "./components/button/ButtonMinusOne";
 import ButtonMinusHundred from "./components/button/ButtonMinusHundred";
 import ButtonReset from "./components/button/ButtonReset";
+import Input from "./components/input/Input";
+import ButtonSendInput from "./components/button/ButtonSendInput";
 
 class App extends React.Component {
     constructor(props) {
@@ -15,6 +17,7 @@ class App extends React.Component {
         console.log('constructor');
         this.state = {
             count: 0,
+            number: ''
         };
         //this.handler = this.handler.bind(this)
 
@@ -23,21 +26,21 @@ class App extends React.Component {
 //         data: null,}
 
 
-    componentDidMount() {
-        console.log('componentDidMount');
-    }
-
-    componentWillUnmount() {
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-       console.log('prevProps');
-       console.log(prevProps);
-        console.log('prevState');
-        console.log(prevState);
-
-
-    }
+    // componentDidMount() {
+    //     console.log('componentDidMount');
+    // }
+    //
+    // componentWillUnmount() {
+    // }
+    //
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //    console.log('prevProps');
+    //    console.log(prevProps);
+    //     console.log('prevState');
+    //     console.log(prevState);
+    //
+    //
+    // }
 
     handler = (number) => {
         if (this.state.count + parseInt(number) >= 0) {
@@ -45,13 +48,22 @@ class App extends React.Component {
         }
     };
 
+    input = (number) => {
+        if ( parseInt(number) >= 0) {
+            this.setState({count: parseInt(number)})
+        }
+    };
+
+    getNumber = (number) => {
+        this.setState({number: number})
+    }
+
     reset = () => {
-        this.setState({count: 0})
+        this.setState({count: 0, number: ''})
     }
 
     render() {
-          console.log('render');
-          const {count} = this.state;
+          const {count, number} = this.state;
           return (
               <div className="App">
                   <Count count={count}/>
@@ -60,6 +72,9 @@ class App extends React.Component {
                   <ButtonPlusHundred myFunc = {this.handler}/>
                   <ButtonMinusHundred myFunc = {this.handler}/>
                   <ButtonReset myFunc={this.reset}/>
+                  <Input myFunc = {this.getNumber} value={number}/>
+                  <ButtonSendInput myFunc = {this.input} number = {number}/>
+
               </div>
           );
   }
