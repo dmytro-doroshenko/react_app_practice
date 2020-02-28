@@ -2,13 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Count from "./components/count/Count";
-import ButtonPlusOne from "./components/button/ButtonPlusOne";
-import ButtonPlusHundred from "./components/button/ButtonPlusHundred";
-import ButtonMinusOne from "./components/button/ButtonMinusOne";
-import ButtonMinusHundred from "./components/button/ButtonMinusHundred";
-import ButtonReset from "./components/button/ButtonReset";
 import Input from "./components/input/Input";
-import ButtonSendInput from "./components/button/ButtonSendInput";
+import Button from "./components/button/Button";
 
 class App extends React.Component {
     constructor(props) {
@@ -42,23 +37,20 @@ class App extends React.Component {
     //
     // }
 
-    handler = (number) => {
+    changeCounter = (number) => {
+        // function function takes a number and adds it to an existing one in memory, provided that the result is greater than or equal to zero
         if (this.state.count + parseInt(number) >= 0) {
-            this.setState({count: this.state.count + number})
+            this.setState({count: this.state.count + parseInt(number)})
         }
     };
 
-    input = (number) => {
-        if ( parseInt(number) >= 0) {
-            this.setState({count: parseInt(number)})
-        }
-    };
-
-    getNumber = (number) => {
+    setNumber = (number) => {
+        // function tracks the value in the input area and stores it in memory
         this.setState({number: number})
     }
 
     reset = () => {
+        // function resets the counter's value
         this.setState({count: 0, number: ''})
     }
 
@@ -67,13 +59,8 @@ class App extends React.Component {
           return (
               <div className="App">
                   <Count count={count}/>
-                  <ButtonPlusOne myFunc = {this.handler}/>
-                  <ButtonMinusOne myFunc = {this.handler}/>
-                  <ButtonPlusHundred myFunc = {this.handler}/>
-                  <ButtonMinusHundred myFunc = {this.handler}/>
-                  <ButtonReset myFunc={this.reset}/>
-                  <Input myFunc = {this.getNumber} value={number}/>
-                  <ButtonSendInput myFunc = {this.input} number = {number}/>
+                  <Button change = {this.changeCounter} reset = {this.reset}/>
+                  <Input track = {this.setNumber} change = {this.changeCounter} value = {number}/>
 
               </div>
           );

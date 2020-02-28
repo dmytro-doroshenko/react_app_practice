@@ -1,16 +1,22 @@
 import React, {Component} from 'react';
 import './Input.css';
 
-function Input({myFunc, value}) {
+function Input({track, change, value}) {
 
-    const readValue = (number) => {
-        myFunc (number);
-    }
+    const trackValue = (number) => {
+        track (number);
+    };
+
+    const addValue = (event, number) => {
+        change (number);
+        event.preventDefault()
+    };
 
     return (
-        <div>
-            <input type="number" placeholder="Enter your number" value = {value} onChange={(event) => readValue(event.target.value)}/>
-        </div>
+        <form onSubmit={(e) => addValue(e, value)} className={'inlineBlock'}>
+            <input type="number" placeholder="Enter your number" value = {value} onChange={(event) => trackValue(event.target.value)}/>
+            <input type='submit' value='Add' className={'btn'}/>
+        </form>
     );
 }
 
